@@ -1,0 +1,33 @@
+---
+# tasks file for elasticsearch
+- name:         tune elasticsearch server
+  import_tasks: tune_server.yml
+
+- name:         install elasticsearch
+  import_tasks: install.yml
+
+- name:         disable heap dump
+  notify:       restart elasticsearch
+  ansible.builtin.lineinfile:
+    path:       /etc/elasticsearch/jvm.options
+    state:      present
+    regexp:     'HeapDumpOnOutOfMemoryError'
+    line:       '-XX:-HeapDumpOnOutOfMemoryError'
+
+- name:         configure elasticsearch memory usage
+  notify:       restart elasticsearch
+  template:
+    src:        jvm_ram.options.j2
+    dest:       /etc/elasticsearch/jvm.options.d/ram.options
+    mode:       0660
+  when:         elasticsearch_memory_allocation != 'auto'
+
+- name:         configure nginx
+  import_tasks: nginx_config.yml
+
+#- name:         configure elasticsearch
+#  notify:       restart elasticsearch
+#  template:
+#    src:        elasticsearch.yml
+#    dest:       /etc/elasticsearch/elasticsearch.yml
+#    mode:       0660

@@ -1,0 +1,4 @@
+---
+timezone:        Europe/Kiev
+mariadb_server:  True
+percona_server:  True

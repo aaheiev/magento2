@@ -1,0 +1,2 @@
+-Xms{{ (ansible_memtotal_mb*elasticsearch_memory_allocation/1000)|round|int }}g
+-Xmx{{ (ansible_memtotal_mb*elasticsearch_memory_allocation/1000)|round|int }}g

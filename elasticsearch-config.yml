@@ -1,0 +1,34 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts:        elasticsearch
+  roles:
+    - common
+    - nginx
+    - elasticsearch
+  tasks:
+    - name:     enable ssh network access
+      ufw:
+        rule:   limit
+        port:   ssh
+        proto:  tcp
+
+    - name:     enable firewall
+      ufw:
+        state:  enabled
+
+#    - name:     allow elasticsearch network access from private net
+#      ufw:
+#        rule:   allow
+#        port:   "9200"
+#        proto:  tcp
+#        src:    "{{ private_net }}"
+
+    - name:     enable http and https access
+      ufw:
+        rule:   allow
+        port:   80,443,8080,8443
+        proto:  tcp
+
+# apt-get -y install apache2-utils
+# htpasswd -c /etc/nginx/htpassword.elastic magento
+# iegioh6ia3aideTh1faiw4yoh4ohsh4r

@@ -1,0 +1,23 @@
+---
+- name:       add a basic http user to a password file
+  notify:     restart nginx
+  community.general.htpasswd:
+    path:     "{{ elasticsearch_htpaswd_file }}"
+    name:     "{{ elasticsearch_http_user }}"
+    password: "{{ elasticsearch_http_pass }}"
+    owner:    root
+    group:    www-data
+    mode:     0640
+
+- name:       create elasticsearch nginx config
+  notify:     restart nginx
+  template:
+    src:      nginx.conf.j2
+    dest:     /etc/nginx/sites-available/elasticssearch
+    mode:     0644
+
+- name:       enable elasticsearch nginx config
+  file:
+    src:      /etc/nginx/sites-available/elasticssearch
+    dest:     /etc/nginx/sites-enabled/elasticssearch
+    state:    link

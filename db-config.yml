@@ -1,0 +1,36 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: db
+  vars:
+    mysql_server_root_pass: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      36353538383738666336626638626234363539303235316363333735316162376166323232613466
+      3930623131343330393061626130363536323662343566350a356531613839393064313266656131
+      33643832346431626565376361393032363333663263333565623861373234323562623037363263
+      6534393334343633330a363132623266333231326631623931333637353334306566646636376563
+      66356135636133633662313332653830653838613238663335393534333062646431353938336639
+      3262636330326166653437656238663338386432306630313437
+  roles:
+    - common
+    - percona
+  tasks:
+#    - name: just ping
+#      ping:
+
+#    - name: Create mysql user
+#      community.mysql.mysql_user:
+#        state:    present
+#        name:     rybray
+#        password: aY5ohNeiquaima0omaungahLeeth3mie
+#        priv:
+#          '*.*': 'ALL,GRANT'
+
+#    - name: Create mysql root user
+#      community.mysql.mysql_user:
+#        state:    present
+#        name:     root
+#        password: "{{ mysql_server_root_pass }}"
+#        priv:
+#          '*.*': 'ALL,GRANT'
+#
+    - debug: var=mysql_server_root_pass

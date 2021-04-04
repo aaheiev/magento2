@@ -1,0 +1,31 @@
+server {
+	listen                    8080;
+	client_max_body_size      64M;
+	location / {
+		limit_except HEAD {
+			auth_basic        "Restricted";
+			auth_basic_user_file  {{ elasticsearch_htpaswd_file }};
+		}
+		proxy_pass            http://127.0.0.1:9200;
+		proxy_redirect        off;
+		proxy_set_header      Host $host;
+		proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_connect_timeout 900;
+		proxy_send_timeout    900;
+		proxy_read_timeout    900;
+		send_timeout          900;
+	}
+
+	location /_aliases {
+		auth_basic            "Restricted";
+		auth_basic_user_file  {{ elasticsearch_htpaswd_file }};
+		proxy_pass            http://127.0.0.1:9200;
+		proxy_redirect        off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_connect_timeout 900;
+		proxy_send_timeout    900;
+		proxy_read_timeout    900;
+		send_timeout          900;
+	}
+}

@@ -1,0 +1,35 @@
+---
+magento_root:              /var/www/rybray
+duplicity_backup_conf:     /etc/rybray.duplicity-backup.conf
+redis_server:              True
+
+#magento_os_user:           rybray
+#magento_name:              rybray
+#nginx_delete_default_site: True
+
+
+#php_fpm_default_upstgream: "fastcgi_backend"
+#php_fpm: True
+#
+#php_fpm_default_pool_cfg:
+#  - { option: 'catch_workers_output',    value: "yes" }
+#  - { option: 'clear_env',               value: "no" }
+#
+#php_fpm_ini:
+#  - { section: 'PHP',     option: 'memory_limit',        value: "2G" }
+#  - { section: 'opcache', option: 'opcache.enable',      value: "1" }
+#  - { section: 'PHP',     option: 'post_max_size',       value: "64M" }
+#  - { section: 'PHP',     option: 'upload_max_filesize', value: "64M" }
+#
+#php_modules:
+#  - php-bcmath
+#  - php-curl
+#  - php-gd
+#  - php-igbinary
+#  - php-intl
+#  - php-mbstring
+#  - php-mysql
+#  - php-redis
+#  - php-soap
+#  - php-zip
+#  - php-xml
